@@ -1,0 +1,8 @@
+Package: falcom
+Version: 1.1
+Section: utils
+Priority: optional
+Architecture: all
+Maintainer: Dakota
+Description: Falcom floppy game loader for Raspberry Pi
+Depends: bash, retroarch, dosbox

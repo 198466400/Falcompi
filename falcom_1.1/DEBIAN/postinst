@@ -1,0 +1,6 @@
+#!/bin/bash
+mkdir -p /home/pi/Falcom/Games
+mkdir -p /home/pi/Falcom/bin
+cp /usr/local/bin/falcom /home/pi/Falcom/bin/falcom
+chmod +x /home/pi/Falcom/bin/falcom
+echo "Falcom installed."

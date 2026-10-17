@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Falcom
+Exec=/home/pi/Falcom/bin/falcom
+Icon=system-run
+Terminal=true

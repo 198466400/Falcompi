@@ -1,0 +1,7 @@
+#!/bin/bash
+echo "Scanning floppy..."
+sudo mount /dev/sda /mnt 2>/dev/null || sudo mount /dev/sdb /mnt 2>/dev/null
+cp /mnt/* /home/pi/Falcom/Games/ 2>/dev/null
+sudo umount /mnt 2>/dev/null
+echo "Launching RetroArch..."
+retroarch -f
