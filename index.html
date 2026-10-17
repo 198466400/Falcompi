@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Falcom – Raspberry Pi Floppy Game Setup</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background:#111; color:#eee; margin:0; padding:20px; }
+    h1, h2 { color:#ffd54f; }
+    .step { border:1px solid #444; padding:15px; margin-bottom:15px; border-radius:6px; background:#1c1c1c; }
+    code { background:#000; padding:2px 4px; border-radius:3px; }
+    button { background:#ffd54f; border:none; padding:8px 14px; border-radius:4px; cursor:pointer; font-weight:600; }
+    button:hover { background:#ffeb3b; }
+    .cmd { background:#000; padding:8px; border-radius:4px; margin-top:8px; font-family:monospace; font-size:0.9em; }
+  </style>
+</head>
+<body>
+  <h1>Falcom – Raspberry Pi Floppy Game Setup</h1>
+  <p>This page will walk you through installing Falcom on your Raspberry Pi so you can play games from your old floppy disks.</p>
+
+  <div class="step">
+    <h2>Step 1 – Open Terminal on your Raspberry Pi</h2>
+    <p>On your Raspberry Pi, click the <strong>Terminal</strong> icon on the top bar or in the menu.</p>
+  </div>
+
+  <div class="step">
+    <h2>Step 2 – Install required software</h2>
+    <p>Copy and paste this command into the Terminal, then press <strong>Enter</strong>:</p>
+    <div class="cmd">
+      sudo apt update && sudo apt install -y retroarch dosbox git
+    </div>
+  </div>
+
+  <div class="step">
+    <h2>Step 3 – Download Falcom from GitHub</h2>
+    <p>Copy and paste this command into the Terminal:</p>
+    <div class="cmd">
+      git clone https://github.com/YOUR-USER/Falcompi.git ~/Falcom
+    </div>
+    <p>Replace <code>YOUR-USER</code> with the GitHub username that hosts Falcom.</p>
+  </div>
+
+  <div class="step">
+    <h2>Step 4 – Make Falcom ready to run</h2>
+    <p>Run these commands in Terminal, one at a time:</p>
+    <div class="cmd">
+      cd ~/Falcom<br>
+      chmod +x Falcom.sh
+    </div>
+    <p>This makes the Falcom script executable.</p>
+  </div>
+
+  <div class="step">
+    <h2>Step 5 – Run Falcom</h2>
+    <p>Now you can start Falcom with:</p>
+    <div class="cmd">
+      cd ~/Falcom && ./Falcom.sh
+    </div>
+    <p>Follow any prompts Falcom shows to scan your floppy and load games.</p>
+  </div>
+
+  <div class="step">
+    <h2>Optional – Create a desktop icon</h2>
+    <p>If you want a clickable icon on the desktop, run:</p>
+    <div class="cmd">
+      echo "[Desktop Entry]<br>
+      Type=Application<br>
+      Name=Falcom<br>
+      Exec=/home/pi/Falcom/Falcom.sh<br>
+      Icon=system-run<br>
+      Terminal=true" &gt; ~/Desktop/Falcom.desktop<br>
+      chmod +x ~/Desktop/Falcom.desktop
+    </div>
+    <p>After this, you can double-click <strong>Falcom</strong> on the desktop.</p>
+  </div>
+
+  <div class="step">
+    <h2>Need help?</h2>
+    <p>If any command shows an error, send a screenshot and the error message to the person who gave you this page.</p>
+  </div>
+</body>
+      </html>
