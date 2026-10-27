@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Falcom – Raspberry Pi Floppy Game Setup</title>
+<style>
+:root{--bg:#0f0f10;--card:#19191b;--line:#2c2c30;--gold:#ffd54f;--gold2:#ffeb3b;--t:#ececec;--t2:#a8a8ae;--ok:#6fcf97}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--t);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:20px 16px 60px}
+main{max-width:720px;margin:0 auto}
+header{display:flex;gap:16px;align-items:center;margin-bottom:8px}
+header svg{flex:none;width:56px;height:56px}
+h1{margin:0;font-size:clamp(28px,7vw,40px);letter-spacing:2px;color:var(--gold);line-height:1}
+.sub{margin:4px 0 0;color:var(--t2);font-size:15px}
+.need{border:1px solid var(--line);border-left:4px solid var(--gold);background:var(--card);border-radius:8px;padding:14px 18px;margin:22px 0}
+.need h2{margin:0 0 6px;font-size:15px;letter-spacing:1px;color:var(--gold)}
+.need ul{margin:0;padding-left:20px}
+.need li{margin:4px 0}
+ol{list-style:none;margin:0;padding:0;counter-reset:s}
+.step{counter-increment:s;position:relative;border:1px solid var(--line);background:var(--card);border-radius:8px;padding:16px 16px 16px 62px;margin-bottom:14px}
+.step::before{content:counter(s);position:absolute;left:16px;top:14px;width:34px;height:34px;border-radius:50%;background:var(--gold);color:#111;font-weight:800;display:grid;place-items:center}
+.step h2{margin:0 0 6px;font-size:18px}
+.step p{margin:6px 0;color:var(--t2)}
+.step p strong{color:var(--t)}
+.cmd{display:flex;gap:8px;align-items:flex-start;background:#000;border:1px solid var(--line);border-radius:6px;padding:10px;margin:10px 0}
+.cmd pre{flex:1;margin:0;min-width:0;white-space:pre-wrap;word-break:break-all;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#f4f4f4}
+button{flex:none;background:var(--gold);color:#111;border:0;border-radius:5px;padding:7px 12px;font:700 12px/1 system-ui,sans-serif;letter-spacing:1px;cursor:pointer}
+button:hover{background:var(--gold2)}
+button:active{transform:translateY(1px)}
+code.i{background:#000;border-radius:3px;padding:1px 5px;font:14px ui-monospace,Menlo,Consolas,monospace;color:var(--gold)}
+.done{color:var(--ok)}
+h2.sec{margin:34px 0 10px;font-size:15px;letter-spacing:1px;color:var(--gold)}
+details{border:1px solid var(--line);background:var(--card);border-radius:8px;margin-bottom:10px}
+summary{cursor:pointer;padding:13px 16px;font-weight:600}
+details>div{padding:0 16px 14px;color:var(--t2)}
+details p{margin:6px 0}
+footer{margin-top:30px;color:var(--t2);font-size:14px;border-top:1px solid var(--line);padding-top:16px}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="4" width="56" height="56" rx="5" fill="#ffd54f"/><rect x="16" y="4" width="30" height="20" fill="#111"/><rect x="36" y="8" width="6" height="12" fill="#ffd54f"/><rect x="12" y="34" width="40" height="26" rx="2" fill="#f5f5f5"/><rect x="18" y="40" width="28" height="3" fill="#bbb"/><rect x="18" y="47" width="20" height="3" fill="#bbb"/></svg>
+  <div><h1>FALCOM</h1><p class="sub">Play your old floppy-disk games on a Raspberry Pi.</p></div>
+</header>
+
+<section class="need">
+  <h2>BEFORE YOU START</h2>
+  <ul>
+    <li>A Raspberry Pi running Raspberry Pi OS, connected to the internet</li>
+    <li>A <strong>USB floppy drive</strong> (the Pi has no floppy port of its own)</li>
+    <li>Your floppy disks. PC/DOS disks work. Disks from Amiga, Apple II or Commodore machines use formats Linux can’t read this way.</li>
+  </ul>
+</section>
+
+<ol>
+  <li class="step">
+    <h2>Open Terminal</h2>
+    <p>Click the black <strong>Terminal</strong> icon (<code class="i">&gt;_</code>) in the top bar of your Pi’s screen.</p>
+  </li>
+
+  <li class="step">
+    <h2>Install git</h2>
+    <p>Copy this, paste it into Terminal, and press <strong>Enter</strong>.</p>
+    <div class="cmd"><pre><code>sudo apt update &amp;&amp; sudo apt install -y git</code></pre><button data-copy>COPY</button></div>
+    <p>The installer in step 4 adds RetroArch and DOSBox for you.</p>
+  </li>
+
+  <li class="step">
+    <h2>Download Falcom</h2>
+    <div class="cmd"><pre><code>git clone https://github.com/{{REPO}}.git ~/Falcom</code></pre><button data-copy>COPY</button></div>
+    <p>If it says the folder <strong>already exists</strong>, Falcom is already downloaded. Go on to step 4.</p>
+  </li>
+
+  <li class="step">
+    <h2>Run the installer</h2>
+    <div class="cmd"><pre><code>cd ~/Falcom &amp;&amp; chmod +x Falcom.sh &amp;&amp; ./Falcom.sh</code></pre><button data-copy>COPY</button></div>
+    <p>This takes a few minutes. It may ask for your password. Nothing shows while you type it, and that’s normal.</p>
+    <p class="done">When you see “Falcom installed.” you’re done.</p>
+  </li>
+
+  <li class="step">
+    <h2>Load a floppy and start</h2>
+    <p>Plug in the USB floppy drive and put a disk in. Then double-click the <strong>Falcom</strong> icon on the desktop, or run:</p>
+    <div class="cmd"><pre><code>~/Falcom/bin/falcom</code></pre><button data-copy>COPY</button></div>
+    <p>Falcom copies the disk’s files into <code class="i">~/Falcom/Games</code> and opens RetroArch.</p>
+    <p>No desktop icon, or it won’t open? Check your username with <code class="i">whoami</code>. The icon only works if the answer is <code class="i">pi</code>. Otherwise use the command above.</p>
+  </li>
+
+  <li class="step">
+    <h2>Play DOS games</h2>
+    <p>See what was copied:</p>
+    <div class="cmd"><pre><code>ls ~/Falcom/Games</code></pre><button data-copy>COPY</button></div>
+    <p>Then start a game. Replace <code class="i">GAME.EXE</code> with a file name from that list, typed exactly:</p>
+    <div class="cmd"><pre><code>dosbox ~/Falcom/Games/GAME.EXE</code></pre><button data-copy>COPY</button></div>
+  </li>
+
+  <li class="step">
+    <h2>Remove the disk safely</h2>
+    <p>Before you pull the disk out of the drive, run:</p>
+    <div class="cmd"><pre><code>sudo umount /mnt</code></pre><button data-copy>COPY</button></div>
+  </li>
+</ol>
+
+<h2 class="sec">IF SOMETHING GOES WRONG</h2>
+
+<details>
+  <summary>Nothing was copied from my disk</summary>
+  <div>
+    <p>Check how the Pi sees the drive:</p>
+    <div class="cmd"><pre><code>lsblk</code></pre><button data-copy>COPY</button></div>
+    <p>A floppy shows up as a tiny disk of about <strong>1.4M</strong>, usually <code class="i">sda</code>. Falcom reads <code class="i">/dev/sda</code> only. If yours is <code class="i">sdb</code> or another name, run <code class="i">nano ~/Falcom/bin/falcom</code> and change <code class="i">sda</code> to match.</p>
+    <p>Also try another disk. Old floppies often fail, and some USB drives need a powered port.</p>
+  </div>
+</details>
+
+<details>
+  <summary>Games inside folders on the disk are missing</summary>
+  <div><p>Falcom copies only the files at the top level of the disk, not folders inside it. Most floppy games keep everything at the top level, so this rarely matters.</p></div>
+</details>
+
+<details>
+  <summary>RetroArch opens but there’s nothing to play</summary>
+  <div><p>RetroArch needs a “core” for each kind of game and none are installed by default. For DOS games, skip it and use <strong>step 6</strong> (DOSBox) instead.</p></div>
+</details>
+
+<details>
+  <summary>A command shows an error</summary>
+  <div><p>Take a screenshot of the Terminal showing the full error and send it to whoever gave you this page.</p></div>
+</details>
+
+<footer>Falcom · Raspberry Pi floppy game setup</footer>
+</main>
+
+<script>
+const REPO="198466400/Falcompi"; // GitHub user/repo that hosts Falcom
+document.querySelectorAll("code").forEach(function(c){c.textContent=c.textContent.split("{{REPO}}").join(REPO)});
+document.querySelectorAll("button[data-copy]").forEach(function(b){
+  b.addEventListener("click",async function(){
+    var el=b.parentNode.querySelector("code"),t=el.textContent;
+    try{await navigator.clipboard.writeText(t)}
+    catch(e){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand("copy")}catch(_){}}
+    b.textContent="COPIED";setTimeout(function(){b.textContent="COPY"},1400);
+  });
+});
+</script>
+</body>
+</html>
